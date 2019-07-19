@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/www/html":{"guestpath":"/var/www/html","hostpath":"C:/Users/btesterman/dev/virtualmachines/stdDev/www","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/btesterman/dev/virtualmachines/stdDev","disabled":false,"__vagrantfile":true}}}

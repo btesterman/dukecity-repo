@@ -1,0 +1,96 @@
+<!--#passthrough<?php
+if (isset($_POST["submit"])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $message = $_POST['message'];
+    $human = intval($_POST['human']);
+    $from = 'Banner 9 Contact Form';
+    $to = 'btesterman@unm.edu';
+    $subject = 'Message from Banner 9 Contact Form';
+
+    $body ="From: $name\n E-Mail: $email\n Message:\n $message";
+
+    // Check if name has been entered
+    if (!$_POST['name']) {
+        $errName = 'Please enter your name';
+    }
+
+    // Check if email has been entered and is valid
+    if (!$_POST['email'] || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $errEmail = 'Please enter a valid email address';
+    }
+
+    //Check if message has been entered
+    if (!$_POST['message']) {
+        $errMessage = 'Please enter your message';
+    }
+
+    //Check if message has been entered
+    if (!$_POST['message']) {
+        $errMessage = 'Please select a category';
+    }
+
+    //Check if simple anti-bot test is correct
+    if ($human !== 5) {
+        $errHuman = 'Your anti-spam is incorrect';
+    }
+
+// If there are no errors, send the email
+    if (!$errName && !$errEmail && !$errMessage && !$errHuman) {
+        if (mail ($to, $subject, $body, $from)) {
+            $result='<div class="alert alert-success">Thank You! We will be in touch.</div>';
+} else {
+$result='<div class="alert alert-danger">Sorry there was an error sending your message. Please try again later.</div>';
+}
+}
+}
+?>#passthrough--><meta charset="utf-8" /><meta content="IE=edge" http-equiv="X-UA-Compatible" /><meta content="width=device-width, initial-scale=1" name="viewport" /><meta content="Banner 9 Contact Form" name="description" /><meta content="Banner 9 Contact Form" name="btesterman" />
+<title>Banner 9 Contact Form</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1 class="page-header text-center">Banner 9 Contact Form</h1>
+            <!-- <img src="C:\Bitnami\wampstack-5.6.31-0\apache2\htdocs\contactForm\unm.png"  alt="UNM" width="30" height="30">
+                        -->
+            <form action="index.php" class="form-horizontal" method="post" role="form">
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="First & Last Name" value="">
+                    <!--#passthrough<?php echo "<p class='text-danger'>$errName</p>";?>#passthrough-->
+                </div>
+            </div>
+            <div class="form-group"><label class="col-sm-2 control-label" for="email">Email</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="email" name="email" placeholder="example@domain.com" type="email" value="">
+                    <!--#passthrough<?php echo "<p class='text-danger'>$errEmail</p>";?>#passthrough-->
+                </div>
+            </div>
+            <div class="form-group"><label class="col-sm-2 control-label" for="message">Message</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" name="message" rows="4">
+                    </textarea>
+                    <!--#passthrough<?php echo "<p class='text-danger'>$errMessage</p>";?>#passthrough-->
+                </div>
+            </div>
+            <div class="form-group"><label class="col-sm-2 control-label" for="category">Category</label>
+                <div class="col-sm-10"><select class="form-control" id="sel1">
+                    <option>Feedback</option>
+                    <option>Issue</option>
+                </select><!--#passthrough<?php echo htmlspecialchars($_POST['category']);?>#passthrough--> <!--#passthrough<?php echo "<p class='text-danger'>$errCategory</p>";?>#passthrough--></div>
+            </div>
+            <div class="form-group"><label class="col-sm-2 control-label" for="human">2 + 3 = ?</label>
+                <div class="col-sm-10"><input class="form-control" id="human" name="human" placeholder="Your Answer" type="text" /> <!--#passthrough<?php echo "<p class='text-danger'>$errHuman</p>";?>#passthrough--></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2"><input class="btn btn-primary" id="submit" name="submit" type="submit" value="Send" /></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2"><!--#passthrough<?php echo $result; ?>#passthrough--></div>
+            </div>
+        </form></div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
